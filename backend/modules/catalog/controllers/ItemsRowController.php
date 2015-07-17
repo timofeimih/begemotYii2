@@ -5,7 +5,7 @@ namespace backend\modules\catalog\controllers;
 use Yii;
 use common\models\CatItemsRow;
 use backend\modules\catalog\models\search\CatItemsRowSearch;
-use yii\web\Controller;
+use backend\components\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
@@ -48,6 +48,7 @@ class ItemsRowController extends Controller
      */
     public function actionView($id)
     {
+        $this->route = 'catalog/item-row';
         return $this->render('view', [
             'model' => $this->findModel($id),
         ]);

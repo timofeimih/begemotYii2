@@ -37,11 +37,20 @@ class CatCategory extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['pid', 'order', 'dateCreate', 'dateUpdate', 'status', 'level'], 'integer'],
+            [['pid', 'order', 'dateCreate', 'dateUpdate', 'status'], 'integer'],
             [['text'], 'string'],
-            [['level', 'seo_title'], 'required'],
+            [['name'], 'required'],
             [['name', 'name_t'], 'string', 'max' => 70],
-            [['seo_title'], 'string', 'max' => 255]
+            [['seo_title'], 'string', 'max' => 255],
+            ['dateUpdate','default','value'=>new \yii\db\Expression('NOW()'),'on'=>'update'],
+            ['dateCreate,dateUpdate','default','value'=>new \yii\db\Expression('NOW()'),'on'=>'insert']
+        ];
+    }
+
+    public function behaviors(){
+        return [
+            'slug' => ['class' => 'common\behaviors\SlugBehavior','out_attribute' => 'name_t'],
+            'order' => ['class' => 'common\behaviors\OrderModelBehavior']
         ];
     }
 
@@ -86,7 +95,6 @@ class CatCategory extends \yii\db\ActiveRecord
     }
     
     public function beforeSave(){
-        $this->name_t = $this->mb_transliterate($this->name);
         if ($this->isNewRecord){
 
                 $this->orderBeforeSave();
@@ -96,7 +104,7 @@ class CatCategory extends \yii\db\ActiveRecord
         if ($this->pid==-1){
             $this->level=0;
         } else{
-            $parentCategory = CatCategory::model()->findAll(array('condition'=>'id = '.$this->pid));
+            $parentCategory = CatCategory::find(['id' => $this->pid])->all();
             $parentCategory = $parentCategory[0];
             $this->level=$parentCategory->level+1;
         }

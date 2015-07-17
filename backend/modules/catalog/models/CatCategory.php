@@ -35,11 +35,19 @@ class CatCategory extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['pid', 'order', 'dateCreate', 'dateUpdate', 'status', 'level'], 'integer'],
+            [['pid', 'order', 'dateCreate', 'dateUpdate', 'status'], 'integer'],
             [['text'], 'string'],
-            [['level', 'seo_title'], 'required'],
+            [['name'], 'required'],
             [['name', 'name_t'], 'string', 'max' => 70],
-            [['seo_title'], 'string', 'max' => 255]
+            [['seo_title'], 'string', 'max' => 255],
+            ['dateUpdate','default',
+              'value'=>new CDbExpression('NOW()'),
+              'setOnEmpty'=>false,'on'=>'update'
+            ],
+            ['dateCreate,dateUpdate','default',
+              'value'=>new CDbExpression('NOW()'),
+              'setOnEmpty'=>false,'on'=>'insert'
+            ]
         ];
     }
 

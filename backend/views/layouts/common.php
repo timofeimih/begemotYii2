@@ -175,14 +175,15 @@ use yii\widgets\Breadcrumbs;
                                     ),
                                     array(
                                         'label' => 'Дополнительные поля',
+                                        'url' => ['/catalog/item-row'],
                                         'items' => array(
                                             array(
                                                 'label' => 'Список полей',
-                                                'url' => array('/catalog/cat-items-row/admin'),
+                                                'url' => ['/catalog/items-row/index'],
                                             ),
                                             array(
                                                 'label' => 'Новое поле',
-                                                'url' => array('/catalog/cat-items-row/create'),
+                                                'url' => ['/catalog/items-row/create'],
                                             ),
                                         ),
                                     ),
