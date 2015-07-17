@@ -120,13 +120,25 @@ use yii\widgets\Breadcrumbs;
                     </div>
                 </div>
                 <!-- sidebar menu: : style can be found in sidebar.less -->
-                <?php echo Menu::widget([
+
+
+                <?php 
+
+                $route = null;
+
+                if (Yii::$app->controller->route) {
+                    $route = Yii::$app->controller->route;
+                }
+
+                $menu = [
                     'options'=>['class'=>'sidebar-menu'],
                     'labelTemplate' => '<a href="#">{icon}<span>{label}</span>{right-icon}{badge}</a>',
                     'linkTemplate' => '<a href="{url}">{icon}<span>{label}</span>{right-icon}{badge}</a>',
                     'submenuTemplate'=>"\n<ul class=\"treeview-menu\">\n{items}\n</ul>\n",
                     'activateParents'=>true,
+                    'route' => $route,
                     'items'=>[
+                        [],
                         [
                             'label'=>Yii::t('backend', 'Timeline'),
                             'icon'=>'<i class="fa fa-bar-chart-o"></i>',
@@ -134,12 +146,74 @@ use yii\widgets\Breadcrumbs;
                             'badge'=> TimelineEvent::find()->today()->count(),
                             'badgeBgClass'=>'label-success',
                         ],
+                        ['label'=>Yii::t('backend', 'Сatalog'), 
+                            'url'=>['/catalog'], 
+                            'icon'=>'<i class="fa fa-edit"></i>',
+                            'items' => [
+                                    array(
+                                        'label' => 'Создать позицию',
+                                        'url' => array('/catalog/items/create'),
+                                    ),
+                                    array(
+                                        'label' => 'Скопировать позицию',
+                                        'url' => array('/catalog/category/make-copy'),
+                                    ),
+                                    array(
+                                        'label' => 'Управление разделами',
+                                        'url' => ['/catalog/category'],
+                                        'items' => array(
+                                            array(
+                                                'url' => ['/catalog/category/index'],
+                                                'label' => 'Список разделов',
+                                                'route' => '/catalog/category/index',
+                                            ),
+                                            array(
+                                                'url' => ['/catalog/category/create'],
+                                                'label' => 'Создать раздел',
+                                            ),
+                                        ),
+                                    ),
+                                    array(
+                                        'label' => 'Дополнительные поля',
+                                        'items' => array(
+                                            array(
+                                                'label' => 'Список полей',
+                                                'url' => array('/catalog/cat-items-row/admin'),
+                                            ),
+                                            array(
+                                                'label' => 'Новое поле',
+                                                'url' => array('/catalog/cat-items-row/create'),
+                                            ),
+                                        ),
+                                    ),
+
+                                    array(
+                                        'label' => 'Акции',
+                                        'items' => array(
+                                            array(
+                                                'label' => 'Список акций',
+                                                'url' => array('/catalog/promo/admin'),
+                                            ),
+                                            array(
+                                                'label' => 'Создать акцию',
+                                                'url' => array('/catalog/promo/create'),
+                                            ),
+                                        ),
+                                    ),
+                                    array(
+                                        'label' => 'Пересборка',
+                                        'url' => array('/catalog/default/renderImages/action'),
+                                    ),
+                                    array('label' => 'РАЗДЕЛЫ'),
+                                ]
+                            ],
                         [
                             'label'=>Yii::t('backend', 'Content'),
                             'icon'=>'<i class="fa fa-edit"></i>',
                             'options'=>['class'=>'treeview'],
                             'items'=>[
                                 ['label'=>Yii::t('backend', 'Static pages'), 'url'=>['/page/index'], 'icon'=>'<i class="fa fa-angle-double-right"></i>'],
+                                ['label'=> 'Кнопки звонков', 'url'=>['/generate/index'], 'icon'=>'<i class="fa fa-angle-double-right"></i>'],
                                 ['label'=>Yii::t('backend', 'Articles'), 'url'=>['/article/index'], 'icon'=>'<i class="fa fa-angle-double-right"></i>'],
                                 ['label'=>Yii::t('backend', 'Article Categories'), 'url'=>['/article-category/index'], 'icon'=>'<i class="fa fa-angle-double-right"></i>'],
                                 ['label'=>Yii::t('backend', 'Text Widgets'), 'url'=>['/widget-text/index'], 'icon'=>'<i class="fa fa-angle-double-right"></i>'],
@@ -186,7 +260,34 @@ use yii\widgets\Breadcrumbs;
                             ]
                         ]
                     ]
-                ]) ?>
+                ];
+
+                function array_insert($arr, $insert, $position) {
+                    $i = 0;
+                    foreach ($arr as $key => $value) {
+                            if ($i == $position) {
+                                    foreach ($insert as $ikey => $ivalue) {
+                                            $ret[$ikey] = $ivalue;
+                                    }
+                            }
+                            $ret[$key] = $value;
+                            $i++;
+                    }
+                    return $ret;
+                }
+
+                // if(isset(Yii::$app->controller->menu)){
+                //     if (is_array(Yii::$app->controller->menu)) {
+                //         $menu['items'][0] = [
+                //             'label'=>Yii::t('backend', 'Additional'),
+                //             'icon'=>'<i class="fa fa-edit"></i>',
+                //             'options'=>['class'=>'treeview'],
+                //             'items'=> Yii::$app->controller->menu
+                //         ];
+                //     }
+                    
+                // }
+                echo Menu::widget($menu) ?>
             </section>
             <!-- /.sidebar -->
         </aside>

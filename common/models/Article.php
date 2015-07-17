@@ -14,6 +14,7 @@ use yii\behaviors\TimestampBehavior;
  *
  * @property integer $id
  * @property string $slug
+ * @property string $seo_title
  * @property string $title
  * @property string $body
  * @property string $thumbnail_base_url
@@ -104,7 +105,7 @@ class Article extends \yii\db\ActiveRecord
         return [
             [['title', 'body'], 'required'],
             [['slug'], 'unique'],
-            [['body'], 'string'],
+            [['body', 'seo_title'], 'string'],
             [['published_at'], 'default', 'value' => time()],
             [['published_at'], 'filter', 'filter' => 'strtotime'],
             [['category_id'], 'exist', 'targetClass' => ArticleCategory::className(), 'targetAttribute'=>'id'],
@@ -123,6 +124,7 @@ class Article extends \yii\db\ActiveRecord
         return [
             'id' => Yii::t('common', 'ID'),
             'slug' => Yii::t('common', 'Slug'),
+            'seo_title' => Yii::t('common', 'Seo title'),
             'title' => Yii::t('common', 'Title'),
             'body' => Yii::t('common', 'Body'),
             'thumbnail' => Yii::t('common', 'Thumbnail'),

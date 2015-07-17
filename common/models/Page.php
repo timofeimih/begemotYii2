@@ -16,6 +16,7 @@ use yii\behaviors\TimestampBehavior;
  * @property integer $status
  * @property integer $created_at
  * @property integer $updated_at
+ * @property string $seo_title
  */
 class Page extends \yii\db\ActiveRecord
 {
@@ -53,7 +54,7 @@ class Page extends \yii\db\ActiveRecord
     {
         return [
             [['title', 'body'], 'required'],
-            [['body'], 'string'],
+            [['body', 'seo_title'], 'string'],
             [['status'], 'integer'],
             [['slug'], 'unique'],
             [['slug'], 'string', 'max' => 2048],
@@ -70,6 +71,7 @@ class Page extends \yii\db\ActiveRecord
             'id' => Yii::t('common', 'ID'),
             'slug' => Yii::t('common', 'Slug'),
             'title' => Yii::t('common', 'Title'),
+            'seo_title' => Yii::t('common', 'Seo title'),
             'body' => Yii::t('common', 'Body'),
             'status' => Yii::t('common', 'Active'),
         ];

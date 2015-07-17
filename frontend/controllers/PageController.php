@@ -23,4 +23,5 @@ class PageController extends Controller
         }
         return $this->render('view', ['model'=>$model]);
     }
+
 }

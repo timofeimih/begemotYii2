@@ -4,7 +4,7 @@ $config = [
     'vendorPath'=>dirname(dirname(__DIR__)).'/vendor',
     'extensions' => require(__DIR__ . '/../../vendor/yiisoft/extensions.php'),
     'sourceLanguage'=>'en-US',
-    'language'=>'en-US',
+    'language'=>'ru-RU',
     'bootstrap' => ['log'],
     'components' => [
 
@@ -140,6 +140,12 @@ $config = [
             'en-US'=>'English (US)',
             'ru-RU'=>'Русский (РФ)',
             'uk-UA'=>'Українська (Україна)'
+        ],
+    ],
+
+    'modules' => [
+        'catalog' => [
+            'class' => 'backend\modules\catalog\Module',
         ],
     ],
 ];

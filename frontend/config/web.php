@@ -3,6 +3,7 @@ $config = [
     'homeUrl'=>Yii::getAlias('@frontendUrl'),
     'controllerNamespace' => 'frontend\controllers',
     'defaultRoute' => 'site/index',
+    'language' => 'ru-RU',
     'modules' => [
         'user' => [
             'class' => 'frontend\modules\user\Module'
@@ -37,7 +38,7 @@ $config = [
             'loginUrl'=>['/user/sign-in/login'],
             'enableAutoLogin' => true,
             'as afterLogin' => 'common\behaviors\LoginTimestampBehavior'
-        ]
+        ],
     ]
 ];
 

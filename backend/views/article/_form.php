@@ -15,6 +15,8 @@ use yii\bootstrap\ActiveForm;
 
     <?= $form->field($model, 'title')->textInput(['maxlength' => 512]) ?>
 
+     <?= $form->field($model, 'seo_title')->textInput(['maxlength' => 255]) ?>
+
     <?= $form->field($model, 'slug')
         ->hint(Yii::t('backend', 'If you\'ll leave this field empty, slug will be generated automatically'))
         ->textInput(['maxlength' => 1024]) ?>

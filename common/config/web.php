@@ -7,9 +7,10 @@ $config = [
             'appendTimestamp' => YII_ENV_DEV
         ]
     ],
-    'as locale' => [
-        'class' => 'common\behaviors\LocaleBehavior'
-    ]
+    // Если надо мультиязычность, то тут надо включить.
+    // 'as locale' => [
+    //     'class' => 'common\behaviors\LocaleBehavior'
+    // ]
 ];
 
 if (YII_DEBUG) {
