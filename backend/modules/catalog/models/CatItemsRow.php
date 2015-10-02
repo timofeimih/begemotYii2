@@ -1,6 +1,6 @@
 <?php
 
-namespace app\backend\modules\catalog\models;
+namespace backend\modules\catalog\models;
 
 use Yii;
 

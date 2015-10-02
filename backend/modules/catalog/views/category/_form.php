@@ -15,7 +15,7 @@ use yii\helpers\ArrayHelper;
 
     <?php echo $form->errorSummary($model); ?>
 
-    <?php echo $form->field($model, 'pid')->dropDownList(ArrayHelper::map($model::find()->all(), 'id', 'name')) ?>
+    <?php echo $form->field($model, 'pid')->dropDownList(ArrayHelper::map(array_merge([['id' => '-1', 'name' => 'Корневой уровень']], $model::find()->all()), 'id', 'name')) ?>
 
     <?php echo $form->field($model, 'name')->textInput(['maxlength' => 70]) ?>
     
@@ -24,7 +24,7 @@ use yii\helpers\ArrayHelper;
 
         <div style="text-align:right;">
             
-            <?=Html::a('Расставить изображения', ['catCategory/tidyPost','id'=>$model->id], ['class'=>'btn btn-primary btn-xs']) ?>
+            <?=Html::a('Расставить изображения', ['category/tidyPost','id'=>$model->id], ['class'=>'btn btn-primary btn-xs']) ?>
         </div>
 
         <?php echo yii\imperavi\Widget::widget([
@@ -36,9 +36,8 @@ use yii\helpers\ArrayHelper;
 
     </div>
 
-    <?php echo $form->field($model, 'order')->textInput() ?>
+    <?php echo $form->field($model, 'seo_title')->textInput() ?>
 
-    <?php echo $form->field($model, 'status')->textInput() ?>
 
     <div class="form-group">
         <?php echo Html::submitButton($model->isNewRecord ? Yii::t('backend', 'Create') : Yii::t('backend', 'Update'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>

@@ -3,7 +3,7 @@
 namespace backend\modules\catalog\controllers;
 
 use Yii;
-use common\models\CatItems;
+use backend\modules\catalog\models\CatItems;
 use backend\modules\catalog\models\search\CatItemsSearch;
 use backend\components\Controller;
 use yii\web\NotFoundHttpException;

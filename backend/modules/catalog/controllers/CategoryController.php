@@ -84,7 +84,7 @@ class CategoryController extends Controller
      * @param integer $id
      * @return mixed
      */
-    public function actionUpdate($id)
+    public function actionUpdate($id, $tab = 'data')
     {
         $model = $this->findModel($id);
 
@@ -93,6 +93,7 @@ class CategoryController extends Controller
         } else {
             return $this->render('update', [
                 'model' => $model,
+                'tab' => $tab
             ]);
         }
     }

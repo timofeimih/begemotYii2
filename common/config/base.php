@@ -147,6 +147,9 @@ $config = [
         'catalog' => [
             'class' => 'backend\modules\catalog\Module',
         ],
+        'pictureBox' => [
+            'class' => 'backend\modules\pictureBox\Module',
+        ],
     ],
 ];
 

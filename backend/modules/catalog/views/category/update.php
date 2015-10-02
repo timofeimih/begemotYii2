@@ -1,6 +1,9 @@
 <?php
 
 use yii\helpers\Html;
+use yii\bootstrap\Nav;
+use yii\helpers\Url;
+
 
 /* @var $this yii\web\View */
 /* @var $model common\models\CatCategory */
@@ -20,23 +23,22 @@ $this->params['breadcrumbs'][] = Yii::t('backend', 'Update');
 
 
 <h1>Update CatCategory <?php echo $model->id; ?></h1>
+<?php echo Nav::widget([
+    'options' => ['class' => 'nav nav-pills', 'style' => 'float:none;'],
+    'items' => [
+        ['label'=>'Данные', 'url'=>['/catalog/category/update/', 'id' => $model->id, 'tab' => 'data'], 'active'=>$tab=='data'],
+        ['label'=>'Изображения', 'url'=>['/catalog/category/update/', 'id' => $model->id, 'tab' => 'photo'], 'active'=>$tab=='photo'],
+        ['label'=>'Видео', 'url'=> ['/catalog/category/update/', 'id' => $model->id, 'tab' => 'video'], 'active'=>$tab=='video'],
+    ]
+]);?>
 
-<?php $this->widget('bootstrap.widgets.TbMenu', array(
-    'type'=>'tabs', // '', 'tabs', 'pills' (or 'list')
-    'stacked'=>false, // whether this is a stacked menu
-    'items'=>array(
-        array('label'=>'Данные', 'url'=>'/catalog/catCategory/update/id/'.$model->id, 'active'=>$tab=='data'),
-        array('label'=>'Изображения', 'url'=>'/catalog/catCategory/update/id/'.$model->id.'/tab/photo', 'active'=>$tab=='photo'),
-        array('label'=>'Видео', 'url'=>'/catalog/catCategory/update/id/'.$model->id.'/tab/video', 'active'=>$tab=='video'),
-    ),
-)); ?>
 
 <?php
     if ($tab=='data'){
         echo $this->render('_form', [
 	        'model' => $model,
-	    ]) 
-    	$this->renderPartial('messageWidget');
+	    ]);
+    	//$this->renderPartial('messageWidget');
     }
 ?>
 
@@ -46,18 +48,16 @@ $this->params['breadcrumbs'][] = Yii::t('backend', 'Update');
 <?php 
         
     $picturesConfig = array();
-    $configFile = Yii::getPathOfAlias('webroot').'/protected/config/catalog/categoryPictureSettings.php';
+    $configFile = Yii::getAlias('@backend').'/config/catalog/categoryPictureSettings.php';
     if (file_exists($configFile)){
 
         $picturesConfig = require($configFile);
 
-        $this->widget(
-            'application.modules.pictureBox.components.PictureBox', array(
-            'id' => 'catalogCategory',
+        echo backend\modules\pictureBox\components\PictureBox::widget([
+            'id' => 'catalog-category',
             'elementId' => $model->id,
             'config' => $picturesConfig,
-                )
-        );
+        ]);
     } else{
         Yii::app()->user->setFlash('error','Отсутствует конфигурационный файл:'.$configFile);
     }

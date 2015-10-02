@@ -189,21 +189,8 @@ use yii\widgets\Breadcrumbs;
                                     ),
 
                                     array(
-                                        'label' => 'Акции',
-                                        'items' => array(
-                                            array(
-                                                'label' => 'Список акций',
-                                                'url' => array('/catalog/promo/admin'),
-                                            ),
-                                            array(
-                                                'label' => 'Создать акцию',
-                                                'url' => array('/catalog/promo/create'),
-                                            ),
-                                        ),
-                                    ),
-                                    array(
                                         'label' => 'Пересборка',
-                                        'url' => array('/catalog/default/renderImages/action'),
+                                        'url' => array('/catalog/default/render-images'),
                                     ),
                                     array('label' => 'РАЗДЕЛЫ'),
                                 ]
