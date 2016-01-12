@@ -47,6 +47,7 @@ class CatItems extends ContentKitModel
         return [
             [['name',], 'required'],
             [['status', 'quantity'], 'integer'],
+            [['quantity'], 'default', 'value' => 0],
             [['seo_title'], 'string', 'max' => 255]
         ];
     }
@@ -114,14 +115,6 @@ class CatItems extends ContentKitModel
 
 
     public function afterFind()
-    {
-        $this->delivery_date = date('m/d/Y', $this->delivery_date);
-
-        return true;
-    }
-
-
-    public function afterSave($insert)
     {
         $this->delivery_date = date('m/d/Y', $this->delivery_date);
 

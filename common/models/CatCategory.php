@@ -94,7 +94,7 @@ class CatCategory extends \yii\db\ActiveRecord
         $this->categories = $catsArray;
     }
     
-    public function beforeSave(){
+    public function beforeSave($insert){
         if ($this->isNewRecord){
 
                 $this->orderBeforeSave();

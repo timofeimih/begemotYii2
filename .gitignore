@@ -3,7 +3,7 @@
 /nginx.conf
 
 # composer
-/vendor
+#/vendor
 composer.phar
 composer.lock
 
